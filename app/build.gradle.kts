@@ -52,6 +52,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.sdp.android)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.fragment.ktx) // For Fragment and viewModels delegate
+    implementation(libs.androidx.lifecycle.viewmodel.ktx) // For ViewModel KTX support
     kapt(libs.hilt.android.compiler)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -62,6 +64,8 @@ dependencies {
 
     //glide
     implementation(libs.glide)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.logging.interceptor)
 }
 kapt {
     correctErrorTypes = true

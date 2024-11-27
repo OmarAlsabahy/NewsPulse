@@ -10,4 +10,8 @@
     <string name="technology">Technology</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="author">author</string>
+    <string name="description">Description</string>
+    <string name="apiKey">4c5a12151e9c446fa86b9052161919e4</string>
 </resources>
