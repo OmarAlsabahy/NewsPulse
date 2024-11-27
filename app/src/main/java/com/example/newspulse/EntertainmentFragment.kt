@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.newspulse.Adapters.NewsAdapter
+import com.example.newspulse.ClickListners.OnclickListener
 import com.example.newspulse.ViewModels.EntertainmentViewModel
 import com.example.newspulse.databinding.FragmentEntertainmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EntertainmentFragment : Fragment() {
+class EntertainmentFragment : Fragment() , OnclickListener {
 lateinit var binding: FragmentEntertainmentBinding
 lateinit var adapter: NewsAdapter
 val viewModel : EntertainmentViewModel by viewModels()
@@ -30,7 +31,7 @@ val viewModel : EntertainmentViewModel by viewModels()
 
         //observe news
         viewModel.news.observe(viewLifecycleOwner){
-            adapter = NewsAdapter(it.articles)
+            adapter = NewsAdapter(it.articles,this)
             binding.newsRecyclerView.adapter = adapter
         }
 
@@ -42,5 +43,15 @@ val viewModel : EntertainmentViewModel by viewModels()
                 binding.progress.visibility = View.GONE
             }
         }
+    }
+
+    override fun onclick(url: String) {
+        val fragment = DetailsFragment()
+        val bundle = Bundle()
+        bundle.putString("url",url)
+        fragment.arguments = bundle
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentsContainer , fragment)
+            .commit()
     }
 }

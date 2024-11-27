@@ -9,11 +9,12 @@ import com.example.newspulse.databinding.FragmentGeneralBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.fragment.app.viewModels
 import com.example.newspulse.Adapters.NewsAdapter
+import com.example.newspulse.ClickListners.OnclickListener
 import com.example.newspulse.Models.GeneralViewModel
 
 
 @AndroidEntryPoint
-class GeneralFragment : Fragment() {
+class GeneralFragment : Fragment() , OnclickListener {
     lateinit var binding:FragmentGeneralBinding
     lateinit var adapter: NewsAdapter
     val viewModel : GeneralViewModel by viewModels()
@@ -32,7 +33,7 @@ class GeneralFragment : Fragment() {
 
         //observer news
         viewModel.news.observe(viewLifecycleOwner){
-            adapter = NewsAdapter(it.articles)
+            adapter = NewsAdapter(it.articles , this)
             binding.newsRecyclerView.adapter = adapter
         }
 
@@ -44,5 +45,15 @@ class GeneralFragment : Fragment() {
                 binding.progress.visibility = View.GONE
             }
         }
+    }
+
+    override fun onclick(url: String) {
+        val fragment = DetailsFragment()
+        val bundle = Bundle()
+        bundle.putString("url",url)
+        fragment.arguments = bundle
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentsContainer , fragment)
+            .commit()
     }
 }
